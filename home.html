@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!-- a HTML 5 document has to start with the <!DOCTYPE html> tag //-->
+ <head> <title>Bug tracking system </title> </head>
+<body>
+   <!-- h1 header biggest size  //--> 
+   <h1>Welcome to the Bug tracking  Application!</h1>
+  
+  <!-- designing the web page with HTML table container = 1 row & 3 columns //-->   
+  <table border="0" width="665px">
+  <!-- the one and only row of the table , table row container : <tr> ... </tr> //-->     
+  <tr>
+	<!-- first column = <td> ...</td> container => contains the image of snowwhite and 7 dwarfs //-->     
+	<td width = "320" align="left"   valign="middle" >
+       <!-- paragraph : <p> ...</p> container  //-->    
+	   <p>
+               <!-- image container : <img> ... </img> //-->     
+			   <img src="1.jpeg" 
+			        title="1.jpeg" 
+			        width="315" height="348">
+			   </img>  
+        </p>
+    </td>
+	<!-- second column => is empty , nonbreaking space entity: %nbsp; //-->     
+    <td> &nbsp; </td>
+	<!-- third column => contains a dummy text concerning Bloggy ... //-->     
+    <td width = "400" align="left" valign="middle" width >
+        <!-- h2 header one size smaller than h1 //--> 
+		<h2>Welcome!! </h2> 
+        <p>
+          This is the Bug tracking system for our company        
+        </p>
+
+        <p>
+          You are heartily invited to join us!        
+        </p>
+
+        <p>
+           Please be informed, registration is required to use the full functionality of the app!
+         </p>
+
+        <p>
+          Please make your choice!      
+        </p>
+        <!-- unordered list : <ul> ...</ul> container  //-->    
+        <ul>
+		    <!-- list item : <li> ...</li> container  //-->        
+			<li>Login in now: 
+				<!-- anchor element <a href=... > ... </a> 
+					 contains a hyper reference attribute = link to HTML page login.html
+				//-->      
+				<a href="login.html" >Jump to login form</a>  
+			</li>     
+            
+			</br>        
+            
+			<li>Join us now: 
+				<!-- anchor element <a href=... > ... </a> 
+					 contains a hyper reference attribute = link to PHP script adduser.php
+				//-->      
+			   <a href="adduser.php" >Jump to register form</a>  
+			</li>    
+
+			</br>        
+            
+			     			
+        </ul>
+         
+    </td>
+  </tr>
+  </table>
+    
+       
+</body>
+</html>
