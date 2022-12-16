@@ -56,7 +56,7 @@ elseif (ctype_alnum($_POST['password']) != true) {
 
         /*** bind the parameters ***/
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-        $stmt->bindParam(':pass', $passwrd, PDO::PARAM_STR, 40);
+        $stmt->bindParam(':pass', $password_hash, PDO::PARAM_STR, 40);
 
         /*** execute the prepared statement ***/
         $stmt->execute();

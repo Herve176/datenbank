@@ -16,12 +16,14 @@ $_SESSION['form_token'] = $form_token;
 </head>
 
 <body>
+
 <h2>Add user</h2>
+
 <form action="adduser_submit.php" method="post">
 	<fieldset>
 
 	<p>
-	<label for="account_name">Username</label>
+	<label for="account_name">account_name</label>
 	<input type="text" id="account_name" name="account_name" value=""
 			maxlength="50" />
 	</p>
@@ -45,25 +47,10 @@ $_SESSION['form_token'] = $form_token;
 			maxlength="70" />
 	</p>
     
-    <P>working_hours</P>
-    <select name="working_hours" id="workinghours">
-        <option value="50">50hours</option>
-        <option value="30">30hours</option>
-        <option value="20">20hours</option>
-        <option value="10">10hours</option>
-    </select>
-
-    <p>
-	<label for="Portrait_image">portrait_image</label>
-	<input type="file" id="portrait_image"/><br/>
-	</p>
-    
-    
-
 	<p>
 	<label for="password">Password</label>
 	<input type="password" id="password" name="password" value=""
-				 maxlength="100" />
+				 maxlength="40" />
 	</p>
 	<p>
 	<input type="hidden" name="form_token" value="<?php echo $form_token; ?>" />

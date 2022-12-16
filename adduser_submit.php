@@ -65,7 +65,7 @@ elseif (ctype_alnum($_POST['last_name']) != true)
 
 
 /*** check the password has only alpha numeric characters ***/
-elseif (ctype_alnum($_POST['password']) != true)
+ elseif (ctype_alnum($_POST['password']) != true)
 {
         /*** if there is no match ***/
         $message = "Password must be alpha numeric";
