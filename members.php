@@ -29,7 +29,7 @@ if (!isset($_SESSION['idAccount'])) {
         $stmt->execute();
 
         /*  check for a result  */
-        $username = $stmt->fetchColumn();// erste column nehmen
+        $username = $stmt->fetchColumn(); // erste column nehmen
 
         /*  if we have no result then something is wrong  */
         if ($username == false) {

@@ -263,7 +263,3 @@ TABLE_1;
    // echo "<br /><hr /><br />";
 
     // TableBuilder::test2();
-
-
-
-?>

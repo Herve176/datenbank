@@ -8,21 +8,17 @@ include("footer.php");
 $my_footer = "";
 
 /*** check the existence of the session variable idAccount ***/
-if(!isset($_SESSION['idAccount']))
-{
+if (!isset($_SESSION['idAccount'])) {
     $message = 'You must be logged in to access this page';
 
     /* add a context sensitive footer string for the pager footer section */
     $options = array('login.html' => 'Go to Login Form ...');
     $my_footer = footer($options);
-}
-else
-{
+} else {
     /*  connect to database via PDO => $dbh is returned back */
     include_once("db_connect.php");
 
-    try
-    {
+    try {
         /*  prepare the query for the username  */
         $stmt = $dbh->prepare("SELECT account_name FROM account 
                                  WHERE idAccount = :idAccount");
@@ -37,26 +33,21 @@ else
         $username = $stmt->fetchColumn();
 
         /*  if we have no result then something went wrong  */
-        if($username == false)
-        {
+        if ($username == false) {
             $message = 'Access Error';
 
             /* add a context sensitive footer string for the pager footer section */
             $options = array('login.html' => 'Go to Login Form');
             $my_footer = footer($options);
-        }
-        else
-        {
-            $message = 'Welcome '.$username.' !';
-            $message .= "<br/><br/>". 'Please type in the bug summary: ';
+        } else {
+            $message = 'Welcome ' . $username . ' !';
+            $message .= "<br/><br/>" . 'Please type in the bug summary: ';
 
-             /* add a context sensitive footer string for the pager footer section */
-             $options = array('logout.php' => 'Log out');
-             $my_footer = footer($options);
+            /* add a context sensitive footer string for the pager footer section */
+            $options = array('logout.php' => 'Log out');
+            $my_footer = footer($options);
         }
-    }
-    catch (Exception $e)
-    {
+    } catch (Exception $e) {
         /*  if we are here, something is wrong in the database  */
         $message = 'We are unable to process your request. Please try again later"';
 
@@ -69,46 +60,48 @@ else
 ?>
 
 <html>
+
     <head>
-    <title>Add Bug summary </title>
+        <title>Add Bug summary </title>
     </head>
 
     <body>
-    
+
         <h1><?php echo $message; ?></h1>
-        
+
         <h2>Bug description </h2>
         <form action="addentry_submit.php" method="post">
-        <fieldset>
-        <p>
-        <label for="entry_title">bug resolution</label>
-        <input type="text" id="entry_title" name="entry_title" value="" size = "45"
-                maxlength="45" />
-        </p>
-        <p>
-        <label for="entry_text" >bug description</label>
-        <textarea id="entry_text" name="entry_text" cols = "41" rows = "5"> </textarea>
-        </p>
+            <fieldset>
+                <p>
+                    <label for="entry_title">bug resolution</label>
+                    <input type="text" id="entry_title" name="entry_title" value="" size="45" maxlength="45" />
+                </p>
+                <p>
+                    <label for="entry_text">bug description</label>
+                    <textarea id="entry_text" name="entry_text" cols="41" rows="5"> </textarea>
+                </p>
 
-        <p>
-        <label for="entry_text" >bug summary</label>
-        <textarea id="entry_text" name="entry_text2" cols = "41" rows = "5"> </textarea>
-        </p>
+                <p>
+                    <label for="entry_text">bug summary</label>
+                    <textarea id="entry_text" name="entry_text2" cols="41" rows="5"> </textarea>
+                </p>
 
 
-        <p>
-        <input type="submit" value="&rarr; add entry" />
-        </p>
-        </fieldset>
+                <p>
+                    <input type="submit" value="&rarr; add entry" />
+                </p>
+            </fieldset>
         </form>
-        
-        <br clear="all"/>
-        <hr/>
+
+        <br clear="all" />
+        <hr />
         <?php
-            echo $my_footer;
-            
-        ?>
-        <br/><hr/>
-        
+    echo $my_footer;
+
+    ?>
+        <br />
+        <hr />
+
     </body>
+
 </html>
