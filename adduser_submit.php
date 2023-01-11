@@ -106,7 +106,7 @@ elseif (ctype_alnum($_POST['password']) != true) {
         /*** execute the prepared statement ***/
         $stmt->execute();
 
-        $message = 'after $stm->execute() ...';
+        //$message = 'after $stm->execute() ...';
         echo "<br/>" . $message . "<br/>";
 
         /*** unset the form token session variable ***/
