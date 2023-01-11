@@ -7,8 +7,8 @@ session_start();
 include_once("footer.php");
 $my_footer = "";
 
-echo "<br/><hr/><br/>" . ' $_POST["entry_text"] = ' . $_POST['entry_text'] . "<br/><hr/><br/>";
-echo "<br/><hr/><br/>" . ' strlen($_POST["entry_text"]) = ' . strlen($_POST['entry_text']) . "<br/><hr/><br/>";
+//echo "<br/><hr/><br/>" . ' $_POST["entry_text"] = ' . $_POST['entry_text'] . "<br/><hr/><br/>";
+//echo "<br/><hr/><br/>" . ' strlen($_POST["entry_text"]) = ' . strlen($_POST['entry_text']) . "<br/><hr/><br/>";
 
 
 /*** check if the users is already logged in ***/
@@ -20,29 +20,31 @@ if (!isset($_SESSION['idAccount'])) {
     $my_footer = footer($options);
 }
 /*** check that both the title, text have been submitted ***/
-elseif (!isset($_POST['entry_title'], $_POST['entry_text'])) {
+elseif (!isset($_POST['summary'], $_POST['description'], $_POST['resolution'])) {
     $message = 'Please enter a valid bug description, bug summary and bug resolution';
     $my_footer = footer(array('addentry.php' => 'Go back to add entry page'));
 }
 
 /*** check the entry_title is the correct length ***/
-elseif (strlen($_POST['entry_title']) > 45 || strlen($_POST['entry_title']) < 4) {
-    $message = 'Incorrect length for bug resolution: too long or too short!';
+elseif (strlen($_POST['summary']) > 45 || strlen($_POST['summary']) < 4) {
+    $message = 'Incorrect length for bug summary: too long or too short!';
     $my_footer = footer(array('addentry.php' => 'Go back to add entry page'));
 }
-/*** check the entry_text is the correct length ***/
-elseif (strlen($_POST['entry_text']) > 255 || strlen($_POST['entry_text']) < 4) {
+/*** check the description is the correct length ***/
+elseif (strlen($_POST['description']) > 45 || strlen($_POST['description']) < 4) {
     $message = 'Incorrect length for bug descrition: too long or too short';
     $my_footer = footer(array('addentry.php' => 'Go back to add entry page'));
-} elseif (strlen($_POST['entry_text']) > 255 || strlen($_POST['entry_text2']) < 4) {
-    $message = 'Incorrect length for bug summary: too long or too short';
+}
+/*** check the resolution is the correct length ***/
+elseif (strlen($_POST['resolution']) > 255 || strlen($_POST['resolution']) < 4) {
+    $message = 'Incorrect length for bug resolution: too long or too short';
     $my_footer = footer(array('addentry.php' => 'Go back to add entry page'));
 } else {
 
     /*** if we are here the data is valid and we can insert it into database ***/
-    $entry_title = filter_var($_POST['entry_title'], FILTER_SANITIZE_STRING);
-    $entry_text = filter_var($_POST['entry_text'], FILTER_SANITIZE_STRING);
-    $entry_text2 = filter_var($_POST['entry_text2'], FILTER_SANITIZE_STRING);
+    $bug_summary = filter_var($_POST['summary'], FILTER_SANITIZE_STRING);
+    $bug_description = filter_var($_POST['description'], FILTER_SANITIZE_STRING);
+    $bug_resolution = filter_var($_POST['resolution'], FILTER_SANITIZE_STRING);
     $idAccount = filter_var($_SESSION['idAccount'], FILTER_VALIDATE_INT);
 
     /*** connect to database ***/
@@ -53,14 +55,14 @@ elseif (strlen($_POST['entry_text']) > 255 || strlen($_POST['entry_text']) < 4) 
         // $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         /*** prepare the select statement ***/
-        $stmt = $dbh->prepare("insert into bug(date_reported,summary,description,resolution)
-                               values ( current_date(), :entry_title, :entry_text,:entry_text2) ");
+        $stmt = $dbh->prepare("insert into bug(idBugstatus, date_reported,summary,description,resolution)
+                               values ( 1, current_date(), :summary, :description,:resolution) ");
 
         /*** bind the parameters ***/
-        $stmt->bindParam(':entry_title', $entry_title, PDO::PARAM_STR);
-        $stmt->bindParam(':entry_text', $entry_text, PDO::PARAM_STR, 1024);
-        $stmt->bindParam(':entry_text2', $entry_text, PDO::PARAM_STR, 1024);
-        $stmt->bindParam(':idAccount', $idAccount, PDO::PARAM_INT);
+        $stmt->bindParam(':summary', $bug_summary, PDO::PARAM_STR);
+        $stmt->bindParam(':description', $bug_description, PDO::PARAM_STR, 1024);
+        $stmt->bindParam(':resolution', $bug_resolution, PDO::PARAM_STR, 1024);
+        //$stmt->bindParam(':idAccount', $idAccount, PDO::PARAM_INT);
 
         /*** execute the prepared statement ***/
         $stmt->execute();

@@ -40,7 +40,7 @@ if (!isset($_SESSION['idAccount'])) {
             $options = array('login.html' => 'Go to Login Form');
             $my_footer = footer($options);
         } else {
-            $message = 'Welcome ' . $username . ' !';
+            $message = '<br/>Welcome ' . $username . ' !';
             $message .= "<br/><br/>" . 'Please type in the bug summary: ';
 
             /* add a context sensitive footer string for the pager footer section */
@@ -72,20 +72,21 @@ if (!isset($_SESSION['idAccount'])) {
         <h2>Bug description </h2>
         <form action="addentry_submit.php" method="post">
             <fieldset>
+
                 <p>
-                    <label for="entry_title">bug resolution</label>
-                    <input type="text" id="entry_title" name="entry_title" value="" size="45" maxlength="45" />
-                </p>
-                <p>
-                    <label for="entry_text">bug description</label>
-                    <textarea id="entry_text" name="entry_text" cols="41" rows="5"> </textarea>
+                    <label for="summary">Bug summary</label>
+                    <input type="text" id="summary" name="summary" value="" size="45" maxlength="45" />
                 </p>
 
                 <p>
-                    <label for="entry_text">bug summary</label>
-                    <textarea id="entry_text" name="entry_text2" cols="41" rows="5"> </textarea>
+                    <label for="description">Bug description</label>
+                    <input type="text" id="description" name="description" value="" size="45" maxlength="45" />
                 </p>
 
+                <p>
+                    <label for="resolution">Bug resolution</label>
+                    <textarea id="resolution" name="resolution" cols="41" rows="5"></textarea>
+                </p>
 
                 <p>
                     <input type="submit" value="&rarr; add entry" />
