@@ -5,6 +5,12 @@ session_start();
 
 /* include footer.php for dynamic footer sections */
 include("footer.php");
+
+/* Use For encryption */
+$cipher = "aes128";
+$pass = "mon_id_123";
+$iv = sha1($pass);
+
 $my_footer = "";
 
 $is_illegal_access = false;
@@ -84,7 +90,7 @@ if (!isset($_SESSION['idAccount'])) {
                 // $link_address = "page_selected_title_records_02.php?entry_title=" . $obj->entry_title;
                 // $link = "<a href='" . $link_address . "'>" . $obj->entry_title . "</a>";
 
-                $link_address = "page_selected_title_records.php?entry_title=" . $obj->idBug;
+                $link_address = "page_selected_title_records.php?idBug=" . openssl_encrypt($obj->idBug, $cipher, $pass, 0, $iv);
                 $link = "<a href='" . $link_address . "'>" . $obj->summary . "</a>";
 
                 /* fill the $fields array containing also the above constructed hyperlink $link */
@@ -153,7 +159,7 @@ if (!isset($_SESSION['idAccount'])) {
         }
     } catch (Exception $e) {
         /*  if we are here, something is wrong in the database  */
-        $message = 'We are unable to process your request. Please try again later"';
+        $message = 'We are unable to process your request. Please try again later';
         echo  $message;
         /* add a context sensitive footer string for the pager footer section */
         $options = array('login.html' => 'Go to Login Form');

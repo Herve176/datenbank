@@ -55,14 +55,14 @@ elseif (strlen($_POST['resolution']) > 255 || strlen($_POST['resolution']) < 4) 
         // $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         /*** prepare the select statement ***/
-        $stmt = $dbh->prepare("insert into bug(idBugstatus, date_reported,summary,description,resolution)
-                               values ( 1, current_date(), :summary, :description,:resolution) ");
+        $stmt = $dbh->prepare("insert into bug(idBugstatus, date_reported,summary,description,resolution, hours, reported_by)
+                               values ( 1, current_date(), :summary, :description,:resolution, 0, :idAccount) ");
 
         /*** bind the parameters ***/
         $stmt->bindParam(':summary', $bug_summary, PDO::PARAM_STR);
         $stmt->bindParam(':description', $bug_description, PDO::PARAM_STR, 1024);
         $stmt->bindParam(':resolution', $bug_resolution, PDO::PARAM_STR, 1024);
-        //$stmt->bindParam(':idAccount', $idAccount, PDO::PARAM_INT);
+        $stmt->bindParam(':idAccount', $idAccount, PDO::PARAM_INT);
 
         /*** execute the prepared statement ***/
         $stmt->execute();
